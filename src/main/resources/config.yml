@@ -39,6 +39,4 @@ welcome:
 
 # Permissions:
 # - whipwelcome.* : All permissions (default: true)
-# - whipwelcome.receive : Receive welcome message on join (default: true)
-# - whipwelcome.broadcast : Show join message to all players (default: true)
 # - whipwelcome.customize : Customize own welcome messages (default: true)
