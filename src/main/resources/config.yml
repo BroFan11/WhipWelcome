@@ -1,0 +1,44 @@
+# WhipWelcome Configuration
+# Players can customize their own welcome messages using /welcome commands
+
+welcome:
+  # Default welcome message prefix (used if player hasn't set custom)
+  # Supports multiple color formats:
+  # - MiniMessage: <gold>, <gradient:#ff00ff:#00ffff>, <rainbow>, etc.
+  # - Legacy codes: &a, &f, &l, &n, etc.
+  # - Hex codes: &#ff00ff or #ff00ff
+  # Leave empty ("") to disable default messages
+  default-prefix: ""
+  
+  # Default welcome message suffix (used if player hasn't set custom)
+  # Leave empty ("") to disable default messages
+  default-suffix: ""
+  
+  # Character limits for custom messages (excluding color codes)
+  # Set to -1 to disable limit
+  max-prefix-length: 30
+  max-suffix-length: 30
+  
+  # Example result: ★ Welcome PlayerName to the server! ★
+  # These values are used to build the JOIN MESSAGE shown to everyone
+  # Players can customize with: /welcome setprefix <prefix> and /welcome setsuffix <suffix>
+  # Requires permission: whipwelcome.customize
+
+# Commands:
+# /welcome setprefix <prefix> - Set your custom welcome prefix
+# /welcome setsuffix <suffix> - Set your custom welcome suffix
+# The join message always uses your prefix + your name + your suffix
+# /welcome view - View your current custom messages
+# /welcome reset - Reset to default messages
+
+# Color Format Examples:
+# Legacy: &aGreen &fWhite &lBold &nUnderline
+# Hex: &#ff00ff or #ff00ff (both work)
+# MiniMessage: <red>, <blue>, <gradient:#ff00ff:#00ffff>, <rainbow>
+# Mix them all: &aHello &#ff00ffWorld <bold>!</bold>
+
+# Permissions:
+# - whipwelcome.* : All permissions (default: true)
+# - whipwelcome.receive : Receive welcome message on join (default: true)
+# - whipwelcome.broadcast : Show join message to all players (default: true)
+# - whipwelcome.customize : Customize own welcome messages (default: true)

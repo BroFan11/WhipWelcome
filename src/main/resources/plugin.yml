@@ -1,0 +1,24 @@
+name: WhipWelcome
+version: '1.0.0'
+main: me.brofan11.whipwelcome.Whipwelcome
+api-version: '1.21'
+description: 'Custom welcome messages plugin with prefix/suffix format'
+author: brofan11
+website: 'https://github.com/brofan11/WhipWelcome'
+
+commands:
+  welcome:
+    description: 'Set your custom join prefix and suffix'
+    usage: '/welcome <setprefix|setsuffix|view|reset>'
+    aliases: [wel, ww]
+
+permissions:
+  whipwelcome.*:
+    description: 'Grants all WhipWelcome permissions'
+    default: true
+    children:
+      whipwelcome.customize: true
+  
+  whipwelcome.customize:
+    description: 'Allows players to customize their own welcome messages'
+    default: true
