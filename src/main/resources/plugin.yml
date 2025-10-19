@@ -1,7 +1,7 @@
 name: WhipWelcome
-version: '1.0.0'
+version: '1.0.1'
 main: me.brofan11.whipwelcome.Whipwelcome
-api-version: '1.21'
+api-version: '1.18'
 description: 'Custom welcome messages plugin with prefix/suffix format'
 author: brofan11
 website: 'https://github.com/brofan11/WhipWelcome'

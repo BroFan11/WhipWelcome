@@ -6,3 +6,7 @@
 /.vscode
 /bin
 /build
+VERSION_TEST.md
+VERSION_MANAGEMENT.md
+FIX_GUIDE.md
+BUILD.md

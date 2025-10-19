@@ -1,10 +1,25 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.yaml:snakeyaml:2.2'
+    }
+}
+
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
     id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
+// Read version from plugin.yml
+def pluginYml = file('src/main/resources/plugin.yml')
+def pluginConfig = new org.yaml.snakeyaml.Yaml().load(pluginYml.text)
+def pluginVersion = pluginConfig.version
+
 group = 'me.brofan11'
-version = '1.0.0'
+version = pluginVersion
 
 repositories {
     mavenCentral()
@@ -15,8 +30,9 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
     implementation("org.xerial:sqlite-jdbc:3.47.1.0")
+    implementation("org.json:json:20240303")
 }
 
 tasks {
@@ -28,7 +44,7 @@ tasks {
     }
 }
 
-def targetJavaVersion = 21
+def targetJavaVersion = 17
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
@@ -47,10 +63,21 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 processResources {
-    def props = [version: version]
-    inputs.properties props
     filteringCharset 'UTF-8'
-    filesMatching('plugin.yml') {
-        expand props
-    }
+    // No need to expand version anymore - it's already in plugin.yml!
+}
+
+shadowJar {
+    archiveClassifier.set('')
+    
+    // Relocate dependencies to avoid conflicts
+    relocate 'org.json', 'me.brofan11.whipwelcome.libs.json'
+    relocate 'org.sqlite', 'me.brofan11.whipwelcome.libs.sqlite'
+    
+    minimize()
+}
+
+// Make build use shadowJar
+build {
+    dependsOn shadowJar
 }

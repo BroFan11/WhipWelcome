@@ -1,13 +1,13 @@
 # WhipWelcome
 
-Personalize your server’s join messages with style. WhipWelcome lets players set their own welcome prefix and suffix that render with MiniMessage, legacy (&) color codes, and hex colors — all stored persistently in SQLite.
+Personalize your server's join messages with style. WhipWelcome lets players set their own welcome prefix and suffix that render with MiniMessage, legacy (&) color codes, and hex colors — all stored persistently in SQLite.
 
-Built for Paper 1.21.x, Java 21.
+Built for Paper 1.18+, Java 21.
 
 ## ✨ Features
 
 - Per-player custom join message parts:
-	- Prefix and suffix combined around the player’s name
+	- Prefix and suffix combined around the player's name
 	- Example build: prefix + <white>PlayerName</white> + suffix
 - Color support out of the box:
 	- MiniMessage: <gold>, <bold>, <gradient:#ff00ff:#00ffff>, <rainbow>
@@ -18,11 +18,12 @@ Built for Paper 1.21.x, Java 21.
 - Uses SQLite for persistence: plugins/WhipWelcome/whipwelcome.db
 - Tab completion for commands and helpful usage prompts
 - Suppresses join message entirely if both prefix and suffix resolve empty (default + player), so you stay in full control
+- **Automatic update checker** - Get notified when new versions are available on GitHub
 
 ## 📦 Requirements
 
-- Paper 1.21.x
-- Java 21
+- Paper 1.18+ (compatible with 1.18, 1.19, 1.20, 1.21+)
+- Java 17+
 
 ## 🔧 Installation
 
@@ -68,6 +69,14 @@ File: `plugins/WhipWelcome/config.yml`
 Key options (defaults shown):
 
 ```yaml
+# Update Checker Settings
+update-checker:
+  # Check for new versions on GitHub
+  enabled: true
+  
+  # Notify online operators when an update is available
+  notify-ops: true
+
 welcome:
 	# Shown if a player has not set their own values
 	default-prefix: ""
@@ -82,6 +91,7 @@ Behavior:
 
 - On join, the message is assembled as: `prefix + <white>PlayerName</white> + suffix`.
 - If both effective prefix and suffix are empty (after defaults), the join message is hidden for that event.
+- Update checker runs asynchronously on plugin enable and notifies console + online ops about new releases.
 
 ## 🗄️ Storage
 
@@ -94,15 +104,15 @@ Note: Only `prefix` and `suffix` are currently used for the public join message.
 
 ## 🛠️ Building from source
 
-This project uses Gradle and targets Java 21.
+This project uses Gradle and targets Java 17.
 
 Windows PowerShell (from the project root):
 
 ```powershell
-./gradlew build
+.\gradlew shadowJar
 ```
 
-The built jar will be in `build/libs/`.
+The built jar will be in `build/libs/WhipWelcome-<version>.jar`.
 
 For a local dev server (Paper), you can use the run task:
 
@@ -114,11 +124,17 @@ The task will download and run the configured Paper version and load your plugin
 
 ## 🙋 FAQ
 
-- How are lengths calculated?
+- **What Minecraft versions are supported?**
+	- Paper 1.18 and above (1.18, 1.19, 1.20, 1.21+). The plugin uses api-version 1.18 for maximum compatibility.
+
+- **How are lengths calculated?**
 	- The plugin strips color codes (MiniMessage tags, legacy codes, and hex markers) before counting characters, so limits apply to visible text only.
 
-- Can I disable the default join message entirely?
-	- Yes. Keep both `default-prefix` and `default-suffix` empty and players who haven’t set custom values will not trigger a join message. Players with custom values will still show theirs.
+- **Can I disable the default join message entirely?**
+	- Yes. Keep both `default-prefix` and `default-suffix` empty and players who haven't set custom values will not trigger a join message. Players with custom values will still show theirs.
+
+- **How does the update checker work?**
+	- On plugin startup, it queries the GitHub API for the latest release and compares version numbers. If a newer version exists, it notifies the console and online operators. This is fully configurable in `config.yml`.
 
 ## 📝 License
 

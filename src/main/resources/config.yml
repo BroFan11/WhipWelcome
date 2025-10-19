@@ -1,6 +1,14 @@
 # WhipWelcome Configuration
 # Players can customize their own welcome messages using /welcome commands
 
+# Update Checker Settings
+update-checker:
+  # Check for new versions on GitHub
+  enabled: true
+  
+  # Notify online operators when an update is available
+  notify-ops: true
+
 welcome:
   # Default welcome message prefix (used if player hasn't set custom)
   # Supports multiple color formats:
